@@ -50,5 +50,5 @@ def check_message(message):
                         if item not in codes[code]:
                             articles = splitCode(code)
                             return findWord(item["-1"], articles)
-    except Exception:
-        return Exception
+    except Exception as e:
+        return str(e)
