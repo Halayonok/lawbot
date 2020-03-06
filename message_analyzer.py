@@ -51,4 +51,4 @@ def check_message(message):
                             articles = splitCode(code)
                             return findWord(item["-1"], articles)
     except Exception:
-        return "Какую-то хуйню ты написал!"
+        return Exception
