@@ -19,6 +19,7 @@ def start(message):
 def search_message(message):
     if len(message.text.split(" ")) < 2:
         bot.reply_to(message, "Неправильный формат запроса.")
+        return
     answer = check_message(message.text)
     bot.reply_to(message, answer)
 

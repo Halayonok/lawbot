@@ -51,7 +51,7 @@ def check_message(message):
                         if item not in codes[code]:
                             articles = splitCode(code)
                             return findWord(item["-1"], articles)
-            else:
-                return "Вы не указали кодекс!"
+        else:
+            return "Вы не указали кодекс!"
     except Exception as e:
         return str(e)
