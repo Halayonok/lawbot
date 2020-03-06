@@ -17,7 +17,7 @@ def hasArticle(message):
     return bool(re.search(r'\d', message))
 
 def splitCode(codeName):
-    with open('/app/uk.txt', 'r', encoding="utf-8") as file:
+    with open(f"/app/{codeName}.txt", 'r', encoding="utf-8") as file:
         prefixes = ("ВА", "ДЕЛ", "НАЯ", "ТЬ")
         data = file.read()
         articles = re.split('Статья |ГЛА|РАЗ|ОСОБЕН|ЧАС', data)
@@ -51,5 +51,7 @@ def check_message(message):
                         if item not in codes[code]:
                             articles = splitCode(code)
                             return findWord(item["-1"], articles)
+            else:
+                return "Вы не указали кодекс!"
     except Exception as e:
         return str(e)
