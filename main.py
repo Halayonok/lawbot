@@ -17,8 +17,56 @@ def start(message):
 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def search_message(message):
-    answer = check_message(message.text)
-    bot.reply_to(message, answer)
+    if message.text == "1":
+        return os.path.exists("app/")
+    elif message.text == "2":
+        return os.path.exists("/app/")
+    elif message.text == "3":
+        return os.path.exists("//app//")
+    elif message.text == "4":
+        return os.path.exists("\app\")
+    elif message.text == "5":
+        return os.path.exists("\\app\\")
+    elif message.text == "6":
+        return os.path.exists("/app/Codes")
+    elif message.text == "7":
+        return os.path.exists("/app/Codes/")
+    elif message.text == "8":
+        return os.path.exists("//app/Codes//")
+    elif message.text == "9":
+        return os.path.exists(f"{os.getcwd()}/Codes/")
+    elif message.text == "10":
+        return os.path.exists(f"{os.getcwd()}")
+    elif message.text == "11":
+        return os.path.exists(f"{os.getcwd()}/")
+    elif message.text == "12":
+        return os.path.exists(f"{os.getcwd()}/Codes")
+    elif message.text == "13":
+        return os.path.exists(f"{os.getcwd()}/Codes")
+    elif message.text == "14":
+        return os.path.exists(f"{os.getcwd()}/Codes")
+    elif message.text == "15":
+        return os.path.exists(f"{os.getcwd()}/Codes")
+    elif message.text == "16":
+        return os.path.exists(f"{os.getcwd()}/Codes")
+    elif message.text == "17":
+        return os.path.exists(f"{os.getcwd()}/Codes")
+    elif message.text == "18":
+        return os.path.exists(f"{os.getcwd()}/Codes")
+    elif message.text == "19":
+        return os.path.exists("app/uk.txt")
+    elif message.text == "20":
+        return os.path.exists("/app/uk.txt"")
+    elif message.text == "21":
+        return os.path.exists(f"{os.getcwd()}/uk.txt")
+    elif message.text == "22":
+        return os.path.exists(f"{os.getcwd()}/Codes/uk.txt")
+    elif message.text == "23":
+        return os.path.exists("app/Codes/uk.txt")
+    else:
+        return "100"
+    # answer = check_message(message.text)
+    # bot.reply_to(message, answer)
 
 @server.route('/', methods=['POST'])
 def getMessage():
