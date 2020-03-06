@@ -16,7 +16,7 @@ def hasArticle(message):
     return bool(re.search(r'\d', message))
 
 def splitCode(codeName):
-    with open(F'Codes/{codeName}.txt', 'r', encoding="utf-8") as file:
+    with open(F'Codes\{codeName}.txt', 'r', encoding="utf-8") as file:
         prefixes = ("ВА", "ДЕЛ", "НАЯ", "ТЬ")
         data = file.read()
         articles = re.split('Статья |ГЛА|РАЗ|ОСОБЕН|ЧАС', data)
