@@ -26,7 +26,7 @@ def splitCode(codeName):
 
 def findArticle(number, code):
     article = next(a for a in code if a.startswith(number))
-    return article
+    return f"Статья {article}"
 
 def findWord(word, code):
     articles = list(filter(lambda x: word in x, code))
