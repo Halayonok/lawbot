@@ -24,7 +24,7 @@ def search_message(message):
     elif message.text == "3":
         return os.path.exists("//app//")
     elif message.text == "4":
-        return os.path.exists("\app\")
+        return os.path.exists("\\app\\")
     elif message.text == "5":
         return os.path.exists("\\app\\")
     elif message.text == "6":
@@ -56,7 +56,7 @@ def search_message(message):
     elif message.text == "19":
         return os.path.exists("app/uk.txt")
     elif message.text == "20":
-        return os.path.exists("/app/uk.txt"")
+        return os.path.exists("/app/uk.txt")
     elif message.text == "21":
         return os.path.exists(f"{os.getcwd()}/uk.txt")
     elif message.text == "22":
