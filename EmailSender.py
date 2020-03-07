@@ -7,7 +7,7 @@ class EmailSender:
         self.PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
     def send_email(self, message):
-        with smtplib.SMTP('smpt.gmail.com') as smtp:
+        with smtplib.SMTP('smpt.gmail.com', 587) as smtp:
             smtp.ehlo()
             smtp.starttls()
             smtp.ehlo()
