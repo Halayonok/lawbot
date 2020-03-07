@@ -53,7 +53,7 @@ def check_message(message):
                     return findArticle(article, articles)
                 else:
                     splitted_message = re.split(f'{code_msg}| ', message)
-                    if len(splitCode) > 3 or not any(w for w in splitted_message if len(w) > 0):
+                    if len(splitted_message) > 3 or not any(w for w in splitted_message if len(w) > 0):
                         return "Неправильный формат запроса!"
                     word = next(w for w in splitted_message if len(w) > 0)
                     return findWord(word[-1], articles)
