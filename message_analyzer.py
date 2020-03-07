@@ -1,5 +1,6 @@
 import re
 import pathlib
+from EmailSender import EmailSender
 
 codes = {
     "uk" : ['ук', 'Ук', 'УК', 'уголовный кодекс', 'Уголовный Кодекс', 'Уголовный кодекс', 'уголовный Кодекс'],
@@ -54,4 +55,6 @@ def check_message(message):
         else:
             return "Вы не указали кодекс!"
     except Exception as e:
-        return str(e)
+        email_sender = EmailSender()
+        email_sender.send_email(str(e))
+        return "Возвращаюсь с пустыми руками. Что-то пошло не так."
