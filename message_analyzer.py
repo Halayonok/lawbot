@@ -56,6 +56,7 @@ def check_message(message):
                     if len(splitted_message) > 3 or not any(w for w in splitted_message if len(w) > 0):
                         return "Неправильный формат запроса!"
                     word = next(w for w in splitted_message if len(w) > 0)
+                    articles = splitCode(code)
                     return findWord(word[-1], articles)
         else:
             return "Вы не указали кодекс!"
