@@ -1,5 +1,4 @@
 import re
-import pathlib
 from EmailSender import EmailSender
 
 codes = {
@@ -14,8 +13,14 @@ codes = {
     "upk" : ['УПК', 'упк', 'Упк', 'уголовный процессуальный кодекс'],
 }
 
-def hasArticle(message):
-    return bool(re.search(r'\d', message))
+def get_article(splitted_message):
+    for item in splitted_message:
+        if bool(re.search(r'\d', item)):
+            return item
+
+def is_search_for_article(message):
+    art = ["ст", "статья"]
+    return bool(re.search(r'\d', message) and any(x for x in art if x in message))
 
 def splitCode(codeName):
     with open(f"/app/{codeName}.txt", 'r', encoding="utf-8") as file:
@@ -40,21 +45,21 @@ def check_message(message):
     try:
         for code in codes:
             if any(x for x in codes[code] if x in message):
-                if hasArticle(message):
-                    message = message.split(" ")
-                    for item in message:
-                        if hasArticle(item):
-                            articles = splitCode(code)
-                            return findArticle(item, articles)
+                code_msg = next(code_name for code_name in codes[code] if code_name in message)
+                if is_search_for_article(message):
+                    splitted_message = re.split(f'{code_msg}|ст.|ст|статья| ', message)
+                    article = get_article(splitted_message)
+                    articles = splitCode(code)
+                    return findArticle(article, articles)
                 else:
-                    message = message.split(" ")
-                    for item in message:
-                        if item not in codes[code]:
-                            articles = splitCode(code)
-                            return findWord(item["-1"], articles)
+                    splitted_message = re.split(f'{code_msg}| ', message)
+                    if len(splitCode) > 3 or any(w for w in splitted_message if len(w) > 0):
+                        return "Неправильный формат запроса!"
+                    word = next(w for w in splitted_message if len(w) > 0)
+                    return findWord(word[-1], articles)
         else:
             return "Вы не указали кодекс!"
     except Exception as e:
         email_sender = EmailSender()
         email_sender.send_email(str(e))
-        return "Возвращаюсь с пустыми руками. Что-то пошло не так."
+        return "Возвращаюсь с пустыми руками. Что-то пошло не так. Я отправил разработчику письмо и он обязательно разберется с этим."
