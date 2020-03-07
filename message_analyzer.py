@@ -36,10 +36,10 @@ def findArticle(number, code):
 
 def findWord(word, code):
     articles = list(filter(lambda x: word in x, code))
-    res = ""
+    full_articles = []
     for item in articles:
-        res += "Статья " + item + "\n"
-    return res
+        full_articles.append("Статья " + item + "\n")
+    return full_articles
 
 def check_message(message):
     try:

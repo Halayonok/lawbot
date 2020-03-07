@@ -23,6 +23,10 @@ def search_message(message):
         bot.reply_to(message, "Неправильный формат запроса.")
         return
     answer = check_message(message.text)
+    if type(answer) == list:
+        for item in answer:
+            bot.reply_to(message, item)
+        return
     bot.reply_to(message, answer)
 
 @server.route('/', methods=['POST'])
