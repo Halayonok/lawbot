@@ -1,5 +1,6 @@
 import re
 from EmailSender import EmailSender
+from num2words import num2words
 
 codes = {
     "uk" : ['ук', 'Ук', 'УК', 'уголовный кодекс', 'Уголовный Кодекс', 'Уголовный кодекс', 'уголовный Кодекс'],
@@ -57,10 +58,14 @@ def check_message(message):
                         return "Неправильный формат запроса!"
                     word = next(w for w in splitted_message if len(w) > 0)
                     articles = splitCode(code)
-                    return findWord(word[-1], articles)
+                    if bool(re.search(r'\d', word)) and "-" not in word and "." not in word:
+                        num_word = num2words(word, lang="ru")
+                        word_entries = findWord(word, articles)
+                        num_word_entries = findWord(num_word, articles)
+                        return word_entries.extend(x for x in num_word_entries if x not in word_entries)
+                    return findWord(word[:-1], articles)
         else:
             return "Вы не указали кодекс!"
     except Exception as e:
         email_sender = EmailSender()
-        email_sender.send_email(str(e))
-        return "Возвращаюсь с пустыми руками. Что-то пошло не так. Я отправил разработчику письмо и он обязательно разберется с этим."
+        return email_sender.send_email(str(e), message)
