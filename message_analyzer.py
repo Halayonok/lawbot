@@ -49,9 +49,17 @@ def findArticle(number, code):
         return article
     return f"Статья {article}"
 
-def findWord(word, code):
-    articles = list(filter(lambda x: word in x and word not in x.split(".")[0], code))
+def findWord(word, code, check_cases = True):
     full_articles = []
+    articles = []
+    if check_cases:
+        word = word.lower()
+        articles = list(filter(lambda x: word in x and word not in x.split(".")[0], code))
+        word = word.capitalize()
+        cap_articles = list(filter(lambda x: word in x and word not in x.split(".")[0], code))
+        articles.extend([x for x in cap_articles if x not in articles])
+    else:
+        articles = list(filter(lambda x: word in x and word not in x.split(".")[0], code))
     for item in articles:
         full_articles.append("Статья " + item + "\n")
     return full_articles
@@ -77,7 +85,7 @@ def check_message(message):
                     articles = splitCode(code)
                     if bool(re.search(r'\d', word)) and "-" not in word and "." not in word:
                         num_word = num2words(word, lang="ru")
-                        word_entries = findWord(word, articles)
+                        word_entries = findWord(word, articles, False)
                         num_word_entries = findWord(num_word[:-1], articles)
                         word_entries.extend([x for x in num_word_entries if x not in word_entries])
                         if word_entries is None or len(word_entries) == 0:
