@@ -10,7 +10,7 @@ class DataSaver:
         self.region_name = os.environ.get("REGION_NAME")
         self.table = os.environ.get("TABLE_NAME")
 
-    def save_request_info(self, message, result):
+    def save_request_info(self, message, result, exception = ""):
         session = boto3.Session(aws_access_key_id=self.aws_access_key_id,
             aws_secret_access_key=self.aws_secret_access_key, region_name=self.region_name)
         dynamodb = session.resource('dynamodb')
@@ -20,5 +20,6 @@ class DataSaver:
                     "username" : f"{message.from_user.first_name} {message.from_user.last_name}",
                     "date" : format(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S'),
                     "message" : message.text,
-                    "result" : result
+                    "result" : result,
+                    "error" : exception
                 })
