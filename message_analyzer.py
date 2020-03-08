@@ -62,6 +62,8 @@ def findWord(word, code, check_cases = True):
         articles = list(filter(lambda x: word in x and word not in x.split(".")[0], code))
     for item in articles:
         full_articles.append("Статья " + item + "\n")
+    if len(full_articles) > 1:
+        full_articles.sort(key=lambda x: x.split(".")[0], reverse=False)
     return full_articles
 
 def check_message(message):

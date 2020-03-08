@@ -2,6 +2,7 @@ import boto3
 import datetime
 import os
 from boto3.dynamodb.conditions import Attr
+from EmailSender import EmailSender
 
 class DataSaver:
     def __init__(self):
@@ -23,3 +24,12 @@ class DataSaver:
                     "result" : result,
                     "error" : exception
                 })
+
+    def check_if_new_user(self, table, message):
+        response = table.scan(
+            FilterExpression=Attr('username').eq(f"{message.from_user.first_name} {message.from_user.last_name}"))
+        if len(response["Items"]) == 0:
+            email = EmailSender()
+            email.send_new_user_email(message)
+
+
