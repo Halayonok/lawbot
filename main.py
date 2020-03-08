@@ -18,6 +18,8 @@ def start(message):
     hello_message = hello_message + "\n\n" + "Подсказка: если ввести ук 20, то я покажу все статьи в УК, в которых есть число 20 либо слово двадцать."
     hello_message = hello_message + "\n\n" + "Сейчас я работаю с УК, УПК, ГК, ГПК, КоАП, ПИКоАП, ХПК, ТК, КоБС."
     bot.reply_to(message, hello_message)
+    db = DataSaver()
+    db.save_request_info(message, "OK", "OK")
 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def search_message(message):
