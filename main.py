@@ -44,7 +44,7 @@ def search_message(message):
     except Exception as e:
         db.save_request_info(message, "FAIL")
         email_sender = EmailSender()
-        return email_sender.send_email(str(e), message.text)
+        return email_sender.send_email(str(e))
 
 @server.route('/', methods=['POST'])
 def getMessage():

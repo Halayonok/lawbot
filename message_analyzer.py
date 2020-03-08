@@ -91,4 +91,4 @@ def check_message(message):
             return "Вы не указали кодекс!"
     except Exception as e:
         email_sender = EmailSender()
-        return email_sender.send_email(str(e), message)
+        return email_sender.send_email(str(e))
