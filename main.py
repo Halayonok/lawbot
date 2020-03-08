@@ -29,9 +29,9 @@ def search_message(message):
     try:
         if type(answer) == list:
             for item in answer:
-                if len(answer) > 4096:
-                    for x in range(0, len(answer), 4096):
-                        bot.reply_to(message, answer[x:x+4096])
+                if len(item) > 4096:
+                    for x in range(0, len(item), 4096):
+                        bot.reply_to(message, item[x:x+4096])
                 else:
                     bot.reply_to(message, item)
         else:

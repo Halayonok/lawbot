@@ -37,9 +37,9 @@ def is_search_for_article(message):
 
 def splitCode(codeName):
     with open(f"/app/{codeName}.txt", 'r', encoding="utf-8") as file:
-        prefixes = ("ВА", "ДЕЛ", "НАЯ", "ТЬ", "идент", "жение")
+        prefixes = ("ВА", "ДЕЛ", "НАЯ", "ТЬ")
         data = file.read()
-        articles = re.split('Статья |ГЛА|РАЗ|ОСОБЕН|ЧАС|През|Прило', data)
+        articles = re.split('Статья |ГЛА|РАЗ|ОСОБЕН|ЧАС', data)
         [articles.remove(s) for s in articles[:] if s.startswith(prefixes) or not s[0].isdigit()]
         return articles
 
