@@ -4,6 +4,7 @@ import telebot
 from message_analyzer import check_message
 from EmailSender import EmailSender
 from DbSaver import DataSaver
+import time
 
 TOKEN = os.environ.get("TelegramToken")
 DOMAIN = os.environ.get("BotDomain")
@@ -30,12 +31,17 @@ def search_message(message):
     db = DataSaver()
     try:
         if type(answer) == list:
+            sleep = False
+            if len(answer) > 50:
+                sleep = True
             for item in answer:
                 if len(item) > 4096:
                     for x in range(0, len(item), 4096):
                         bot.reply_to(message, item[x:x+4096])
                 else:
                     bot.reply_to(message, item)
+                if sleep:
+                    time.sleep(1)
         else:
             if len(answer) > 4096:
                 for x in range(0, len(answer), 4096):
