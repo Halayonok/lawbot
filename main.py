@@ -40,7 +40,7 @@ def search_message(message):
                     bot.reply_to(message, answer[x:x+4096])
             else:
                 bot.reply_to(message, answer)
-        db.save_request_info(message, "OK")
+        db.save_request_info(message, "OK", "OK")
     except Exception as e:
         db.save_request_info(message, "FAIL", str(e))
         email_sender = EmailSender()
