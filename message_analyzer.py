@@ -86,12 +86,12 @@ def check_message(message):
                     if bool(re.search(r'\d', word)) and "-" not in word and "." not in word:
                         num_word = num2words(word, lang="ru")
                         word_entries = findWord(word, articles, False)
-                        num_word_entries = findWord(num_word[:-1], articles)
+                        num_word_entries = findWord(num_word[:-1] if len(num_word) < 7 else num_word[:-2], articles)
                         word_entries.extend([x for x in num_word_entries if x not in word_entries])
                         if word_entries is None or len(word_entries) == 0:
                             return f"В {empty_results[code]} я не нашел {word}"
                         return word_entries
-                    answer = findWord(word[:-1], articles)
+                    answer = findWord(word[:-1] if len(word) < 8 else word[:-2], articles)
                     if answer is None or len(answer) == 0:
                         return f"В {empty_results[code]} я не нашел {word}"
                     return answer
