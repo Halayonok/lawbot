@@ -16,6 +16,7 @@ class DataSaver:
             aws_secret_access_key=self.aws_secret_access_key, region_name=self.region_name)
         dynamodb = session.resource('dynamodb')
         table = dynamodb.Table(self.table)
+        self.check_if_new_user(table, message)
         table.put_item(
                 Item={
                     "username" : f"{message.from_user.first_name} {message.from_user.last_name}",
