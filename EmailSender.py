@@ -26,8 +26,8 @@ class EmailSender:
             smtp.ehlo()
             smtp.login(self.EMAIL, self.PASSWORD)
 
-            msg = MIMEText('body...', 'plain', 'utf-8')
-            msg['Subject'] = f"Subject: Telegram new user\n\nUsername: {message.from_user.first_name} {message.from_user.last_name} {message.from_user.id} {message.from_user.username}"
+            msg = MIMEText(f'Username: {message.from_user.first_name} {message.from_user.last_name} {message.from_user.id} {message.from_user.username}', 'plain', 'utf-8')
+            msg['Subject'] = f"Telegram new user"
             msg['From'] = self.EMAIL
             msg['To'] = "a.halayonok@gmail.com"
 
