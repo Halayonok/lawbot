@@ -33,6 +33,7 @@ def search_message(message):
             sleep = False
             if len(answer) > 70:
                 bot.reply_to(message, "Похоже, я собрал слишком много информации по Вашему запросу. Попробуйте его конкретизировать.")
+                db.save_request_info(message, "Too Many Requests", "OK")
                 return
             for item in answer:
                 if len(item) > 4096:
