@@ -19,7 +19,7 @@ class DataSaver:
         self.check_if_new_user(table, message)
         table.put_item(
                 Item={
-                    "username" : f"{message.from_user.first_name} {message.from_user.last_name}",
+                    "username" : f"{message.from_user.first_name} {message.from_user.last_name} {message.from_user.id} {message.from_user.username}",
                     "date" : format(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S'),
                     "message" : message.text,
                     "result" : result,
@@ -28,7 +28,7 @@ class DataSaver:
 
     def check_if_new_user(self, table, message):
         response = table.scan(
-            FilterExpression=Attr('username').eq(f"{message.from_user.first_name} {message.from_user.last_name}"))
+            FilterExpression=Attr('username').eq(f"{message.from_user.first_name} {message.from_user.last_name} {message.from_user.id} {message.from_user.username}"))
         if len(response["Items"]) == 0:
             email = EmailSender()
             email.send_new_user_email(message)
