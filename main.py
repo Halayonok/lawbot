@@ -4,7 +4,6 @@ import telebot
 from message_analyzer import check_message
 from EmailSender import EmailSender
 from DbSaver import DataSaver
-import time
 
 TOKEN = os.environ.get("TelegramToken")
 DOMAIN = os.environ.get("BotDomain")
@@ -32,8 +31,9 @@ def search_message(message):
     try:
         if type(answer) == list:
             sleep = False
-            if len(answer) > 50:
-                sleep = True
+            if len(answer) > 70:
+                bot.reply_to(message, "Похоже, я собрал слишком много информации по Вашему запросу. Попробуйте его конкретизировать.")
+                return
             for item in answer:
                 if len(item) > 4096:
                     for x in range(0, len(item), 4096):
@@ -50,6 +50,8 @@ def search_message(message):
                 bot.reply_to(message, answer)
         db.save_request_info(message, "OK", "OK")
     except Exception as e:
+        if "Too Many Requests" in str(e):
+            bot.reply_to(message, "Похоже, я собрал слишком много информации по Вашему запросу. Попробуйте его конкретизировать.")
         db.save_request_info(message, "FAIL", str(e))
         email_sender = EmailSender()
         return email_sender.send_email(str(e))
